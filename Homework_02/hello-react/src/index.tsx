@@ -10,6 +10,12 @@ const root = ReactDOM.createRoot(
 );
 
 // root.render(<App />);
-// root.render(<TemperatureConverter />);
-// root.render(<Counter/>);
-root.render(<RandomNumberGenerator/>);
+root.render(
+<React.StrictMode>
+  <Counter/>
+  <br></br>
+  <RandomNumberGenerator/>
+  <br></br>
+  <TemperatureConverter />
+  <br></br>
+  </React.StrictMode>);
