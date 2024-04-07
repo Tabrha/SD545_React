@@ -123,9 +123,9 @@
     transition: 0.2s;
 
     & .send-text {
-      position: absolute;
+      position: rgb(93, 239, 93);
       z-index: 1;
-      color: #fff;
+      color: #141313;
       font-size: 16px;
     }
     &::after {
