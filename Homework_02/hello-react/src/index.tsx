@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
- import App from './App';
+import App from './App';
 import TemperatureConverter from './TemperatureConverter';
- import Counter from './Counter'
+import Counter from './Counter'
 import RandomNumberGenerator from './RandomNumberGenerator'
 
 const root = ReactDOM.createRoot(
@@ -11,11 +11,12 @@ const root = ReactDOM.createRoot(
 
 // root.render(<App />);
 root.render(
-<React.StrictMode>
-  <Counter/>
-  <br></br>
-  <RandomNumberGenerator/>
-  <br></br>
-  <TemperatureConverter />
-  <br></br>
-  </React.StrictMode>);
+  <React.StrictMode>
+    <Counter />
+    <br></br>
+    <RandomNumberGenerator />
+    <br></br>
+    <TemperatureConverter />
+    <br></br>
+  </React.StrictMode>
+);
