@@ -11,6 +11,10 @@ function sum(arr) {
     }
     return sum;
 }
+// function add(){
+//     return filter.(item => item >20)
+//          .reduce((sum, current)=> (sum+current);0)
+// }
 
 /*2. Create a function using function expression named getNewArray with one parameter of String
 Array, return a new array which contains all string, length is greater than and equal to 5, and
@@ -33,7 +37,10 @@ const concat = (...args) => {
     }, []);
 };
 
+function concat2(str,arr1,arr2){
+    return {...str, ...arr1, ...arr2}
+}
 // Test cases
 console.log(sum([10, 25, 30, 15])); 
 console.log(getNewArray(['abebe', 'hanna', 'hellon', 'hiwot', 'Arkan','eleni'])); 
-console.log(concat('hi', [1, 2, 3], ['Hello', 'world']));
+console.log(concat2('hi', [1, 2, 3], ['Hello', 'world']));
