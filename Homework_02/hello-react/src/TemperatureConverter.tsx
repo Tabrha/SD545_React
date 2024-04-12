@@ -1,34 +1,46 @@
-import React, { useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 
-function TemperatureConverter() {
-  const [celsius, setCelsius] = useState('');
-  const [fahrenheit, setFahrenheit] = useState('');
+// import { ChangeEvent } from "react";
 
-  const handleCelsiusChange = (e:any) => {
-    setCelsius(e.target.value);
+
+
+
+
+function CalculatorApp() {
+  const [n1, setN1] = useState(0);
+  const [n2, setN2] = useState(0);
+  const [sum, setSum] = useState(0);
+
+  const n1Handler = (e: ChangeEvent<HTMLInputElement>) => {
+    setN1(Number(e.target.value));
   };
 
-  const convertToCelsius = () => {
-    const celsiusValue = parseFloat(celsius);
-    const fahrenheitValue = (celsiusValue * 9/5) + 32;
-    setFahrenheit(fahrenheitValue.toFixed(2));
+  const n2Handler = (e: ChangeEvent<HTMLInputElement>) => {
+    setN2(Number(e.target.value));
+  };
+
+  const calculateSum = () => {
+    setSum(n1 + n2);
   };
 
   return (
     <div>
-      <h2>Temperature Converter</h2>
-      <label>
-        Celsius:
-        <input type="number" value={celsius} onChange={handleCelsiusChange} />
-      </label>
-      <button onClick={convertToCelsius}>Convert to Fahrenheit</button>
-      {fahrenheit && (
-        <p>
-          Fahrenheit: {fahrenheit}
-        </p>
-      )}
+      <h1>Basic Calculator App!</h1>
+      <span>
+        <input type='number' value={n1} onChange={n1Handler} />
+        <span>+</span>
+        <input type='number' value={n2} onChange={n2Handler} />
+        <span>=</span>
+        <button onClick={calculateSum}>Calculate Sum</button>
+      </span>
+      <p>Sum: {sum}</p>
     </div>
   );
 }
 
-export default TemperatureConverter;
+export default CalculatorApp;
+
+
+
+
+

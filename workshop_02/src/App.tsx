@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import classNames from 'classnames';
 import _ from 'lodash';
 import { v4 as uuidv4 } from 'uuid';
@@ -18,62 +18,13 @@ interface Comment {
   comment_time: string;
   like: number;
 }
-
-// Comment List data
-const defaultList: Comment[] = [
-  {
-    comment_id: 3,
-    user: {
-      user_id: '13258165',
-      avatar: '',
-      user_name: 'Jay Zhou',
-    },
-    content: 'Nice, well done',
-    comment_time: '10-18 08:15',
-    like: 88,
-  },
-  {
-    comment_id: 2,
-    user: {
-      user_id: '36080105',
-      avatar: '',
-      user_name: 'Song Xu',
-    },
-    content: 'I search for you thousands of times, from dawn till dusk.',
-    comment_time: '11-13 11:29',
-    like: 88,
-  },
-  {
-    comment_id: 1,
-    user: {
-      user_id: '30009257',
-      avatar: avatar,
-      user_name: 'Arkan A',
-    },
-    content:
-      'I told my computer I needed a break... now it will not stop sending me vacation ads.',
-    comment_time: '10-19 09:00',
-    like: 66,
-  },
-  {
-    comment_id: 4,
-    user: {
-      user_id: '30009257',
-      avatar: avatar,
-      user_name: 'Arkan A',
-    },
-    content: 'Follow Me',
-    comment_time: '10-18 09:00',
-    like: 77,
-  },
-];
-
-// current logged in user info
-const user = {
+const user = {  // Define user within the scope of the component
   user_id: '30009257',
   avatar: avatar,
   user_name: 'Arkan A',
 };
+
+
 
 // Nav Tab
 const tabs = [
@@ -81,13 +32,31 @@ const tabs = [
   { type: 'newest', text: 'Newest' },
 ];
 
-function App() {
-  const [commentList, setCommentList] = useState<Comment[]>(_.orderBy(defaultList, 'like', 'desc'));
-  const [activeType, setActiveType] = useState<string>('hot');
-  const [newComment, setNewComment] = useState<string>('');
+function useGetList(){
+  const [commentList, setCommentList] = useState<Comment[]>([]);
+  
+  useEffect(() => {
+    async function getDefaultList(){
+      const response = await fetch('http://localhost:3004/list');
+      const data = await response.json();
+      setCommentList(_.orderBy(data, 'like', 'desc'));
+    }
+    getDefaultList();
+  }, []);
 
+  return {
+    commentList,
+    setCommentList
+  }
+}
+
+function App() {
+  const { commentList, setCommentList } = useGetList();
+  const [activeType, setActiveType] = useState('hot');
+  const [newComment, setNewComment] = useState<string>('');
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
+ 
   const deleteComment = (comment_id: string | number) => {
     setCommentList(commentList.filter(item => item.comment_id !== comment_id));
   };
@@ -174,15 +143,15 @@ function App() {
       </div>
     </div>
   );
-};
+}
 
 interface Props {
   comment: Comment;
   toDelete: (comment_id: number | string) => void;
 }
 
-function Childcomponent(props:Props) {
-  const {comment, toDelete} = props
+function Childcomponent(props: Props) {
+  const { comment, toDelete } = props;
   return (
     <div className="reply-item">
       <div className="root-reply-avatar">
@@ -199,7 +168,8 @@ function Childcomponent(props:Props) {
           <div className="reply-info">
             <span className="reply-time">{comment.comment_time}</span>
             <span className="reply-time">Like: {comment.like}</span>
-            {comment.user.user_id === user.user_id && (
+   
+            {comment.user.user_id === user.user_id  && (
               <span className="delete-btn" onClick={() => toDelete(comment.comment_id)}>
                 Delete
               </span>
@@ -209,6 +179,6 @@ function Childcomponent(props:Props) {
       </div>
     </div>
   );
-};
+}
 
 export default App;
