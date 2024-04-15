@@ -27,6 +27,15 @@ const updateTodo = (id:string)=>{
 const deleteTodoById = (id: string) => {
   setTodos(todos.filter(todo => todo.id !== id));
 }
+
+const updateAll = () =>{
+  setTodos(todos.map(todo =>({...todo, done:!todo.done})))
+}
+
+const deleteFinishedTodos=()=>{
+  setTodos(todos.filter(todo=> !todo.done))
+}
+
   useEffect(() => {
     async function getTodos() {
       const response = await fetch('http://localhost:9000/todos');
@@ -41,8 +50,8 @@ const deleteTodoById = (id: string) => {
     <div className="todo-container">
       <div className="todo-wrap">
         <Header onAddNewTodo={addNewTodo}/>
-        <List todos={todos} onUpdateTodo={updateTodo} onDeleteTodoById={deleteTodoById}/>
-        <Footer  todos={todos}/>
+        <List todos={todos} onUpdateTodo={updateTodo}  onDeleteTodoById={deleteTodoById}/>
+        <Footer  todos={todos}  updateAll={updateAll}   onDeleteFinishedTodos={deleteFinishedTodos} />
       </div>
     </div>
   );
