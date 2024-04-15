@@ -14,19 +14,20 @@ export default function Header(props: Props) {
 
   const addTodo = (e: KeyboardEvent<HTMLInputElement>) => {
     const value = e.currentTarget.value;
-    if (value.trim()) {
-      if(e.key === 'Enter'){
-        onAddNewTodo({
-          id: nanoid(),
-          name: value,
-          done: false
-        });
+
+    if (e.key === 'Enter') {
+     if (value.trim()) {
+          onAddNewTodo({
+            id: nanoid(),
+            name: value,
+            done: false
+          });
         e.currentTarget.value = '';
         e.currentTarget.focus();
-      }
-    } else {
+      }else {
       alert('Task cannot be empty');
     }
+    } 
   }
 
 
