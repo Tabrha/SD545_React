@@ -12,7 +12,10 @@ export default function Footer(props:Props) {
   const changeCheckbox = () => {
     updateAll();
   }
-
+const deleteHandler =()=>{
+  if(window.confirm("Are you ssure to delelet?"))
+   onDeleteFinishedTodos()
+}
   return (
     <div className="todo-footer">
       <label>
@@ -27,3 +30,4 @@ export default function Footer(props:Props) {
     </div>
   )
 }
+

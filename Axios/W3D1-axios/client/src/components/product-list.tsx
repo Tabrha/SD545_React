@@ -3,7 +3,7 @@ import axios from 'axios'
 import Product from '../types/product';
 
 export default function ProductList() {
-
+  
     const [products, setProducts] = useState<Product[]>([]);
 
     useEffect(() => {
